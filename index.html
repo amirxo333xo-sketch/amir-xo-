@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amir XO | مودها و بازی‌ها</title>
+<style>
+:root {
+  --site-primary: #FFD400;
+  --site-on-primary: #151515;
+  --site-secondary: #202020;
+  --site-on-secondary: #FFFFFF;
+  --site-background: #101010;
+  --site-on-background: #F7F7F7;
+  --site-font-body: Tahoma, Arial, sans-serif;
+  --site-font-heading: Tahoma, Arial, sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--site-font-body); background: var(--site-background); color: var(--site-on-background); line-height: 1.8; }
+#app { min-height: 100vh; width: 100%; border-radius: 0; background-color: light-dark(var(--site-background), var(--site-background)); color: var(--site-on-background); }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+.header { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:15px clamp(16px,5vw,64px); background:var(--site-secondary); border-bottom:1px solid #ffffff1c; position:sticky; top:0; z-index:10; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:900; direction:ltr; }
+.logo { display:grid; place-items:center; width:42px; height:42px; border-radius:10px; background:var(--site-primary); color:var(--site-on-primary); font-size:21px; font-weight:1000; letter-spacing:-3px; }
+.nav { display:flex; gap:15px; flex-wrap:wrap; font-size:.92rem; color:#ddd; }
+.nav a:hover { color:var(--site-primary); }
+.hero { padding: clamp(42px,8vw,90px) clamp(18px,7vw,90px); background:linear-gradient(135deg,#1b1b1b,#101010 70%); display:grid; grid-template-columns:1.25fr .75fr; gap:30px; align-items:center; border-bottom:3px solid var(--site-primary); }
+.kicker { display:inline-block; border:1px solid #ffd40066; color:var(--site-primary); background:#ffd40012; padding:4px 12px; border-radius:999px; font-size:.85rem; }
+h1,h2,h3 { font-family:var(--site-font-heading); line-height:1.35; }
+h1 { font-size:calc(clamp(2.5rem,6vw,4.7rem) * var(--site-heading-scale)); margin:16px 0; letter-spacing:-1.5px; }
+h1 span,.yellow { color:var(--site-primary); }
+.hero p { color:#d0d0d0; max-width:620px; }
+.buttons { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:7px; border:1px solid #ffffff30; border-radius:calc(10px * var(--site-radius-scale)); padding:10px 16px; cursor:pointer; font-weight:800; background:#292929; color:white; }
+.btn.primary { background:var(--site-primary); color:var(--site-on-primary); border-color:var(--site-primary); }
+.btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+.hero-card { border:1px solid #ffffff20; background:#191919; border-radius:20px; padding:24px; box-shadow:0 15px 45px #0005; }
+.xo-art { font-size:clamp(4rem,10vw,7rem); color:var(--site-primary); text-align:center; font-weight:1000; direction:ltr; line-height:1.2; text-shadow:0 0 35px #ffd40028; }
+.hero-card p { text-align:center; margin-bottom:0; }
+.section { padding:55px clamp(16px,5vw,64px); }
+.section-head { display:flex; justify-content:space-between; align-items:end; gap:15px; flex-wrap:wrap; margin-bottom:22px; }
+.section-head h2 { margin:0; font-size:calc(1.8rem * var(--site-heading-scale)); }
+.muted { color:#b8b8b8; }
+.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.card { background:var(--site-secondary); border:1px solid #ffffff18; border-radius:calc(16px * var(--site-radius-scale)); padding:20px; min-width:0; }
+.card-icon { font-size:2rem; }
+.card h3 { margin:8px 0; }
+.pill { display:inline-block; background:#ffd40019; color:var(--site-primary); border:1px solid #ffd4004a; padding:2px 9px; border-radius:999px; font-size:.78rem; margin:3px 0; }
+.download { display:flex; flex-direction:column; gap:10px; }
+.download .btn { width:100%; margin-top:auto; }
+.server-box { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:center; background:var(--site-secondary); border:1px solid #ffffff1a; border-radius:18px; padding:24px; }
+.ip { direction:ltr; text-align:center; padding:12px; background:#101010; border:1px dashed #ffd40075; border-radius:10px; font-weight:800; overflow-wrap:anywhere; }
+.status { display:inline-flex; align-items:center; gap:8px; border-radius:999px; padding:6px 12px; background:#3b2f00; color:#ffe47a; font-size:.9rem; }
+.dot { width:9px; height:9px; border-radius:50%; background:#ffc928; }
+.notice { border-right:4px solid var(--site-primary); background:#ffd40012; padding:13px 15px; color:#e8e1bf; border-radius:8px; font-size:.92rem; }
+.chat { max-width:760px; margin:auto; background:var(--site-secondary); border:1px solid #ffffff20; border-radius:16px; overflow:hidden; }
+.chat-top { padding:14px 18px; background:#292929; font-weight:800; }
+.messages { padding:15px; min-height:150px; max-height:300px; overflow:auto; display:flex; flex-direction:column; gap:10px; }
+.message { background:#303030; padding:9px 12px; border-radius:10px; align-self:flex-start; max-width:90%; overflow-wrap:anywhere; }
+.message .who { color:var(--site-primary); font-size:.78rem; font-weight:800; }
+.chat-form { display:flex; gap:8px; padding:12px; border-top:1px solid #ffffff18; }
+.chat-form input { flex:1; min-width:0; }
+input, textarea, select { width:100%; color:#fff; background:#121212; border:1px solid #ffffff2b; border-radius:9px; padding:11px 12px; }
+label { display:block; margin:10px 0 5px; color:#ddd; }
+.upload-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.upload-form { background:var(--site-secondary); border:1px solid #ffffff1a; border-radius:16px; padding:20px; }
+footer { padding:25px clamp(16px,5vw,64px); border-top:1px solid #ffffff1c; background:#0b0b0b; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; color:#aaa; }
+.small { font-size:.82rem; }
+@media(max-width:800px) { .hero { grid-template-columns:1fr; } .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .server-box { grid-template-columns:1fr; } }
+@media(max-width:540px) { .nav { gap:9px; font-size:.8rem; } .header { align-items:flex-start; flex-direction:column; } .grid,.upload-grid { grid-template-columns:1fr; } .section { padding-top:38px; padding-bottom:38px; } .chat-form { flex-direction:column; } }
+</style>
+</head>
+<body>
+<div id="app">
+<header class="header">
+  <a class="brand" href="#home"><span class="logo">XO</span><span>AMIR XO</span></a>
+  <nav class="nav" aria-label="منوی سایت">
+    <a href="#mods">مودها</a><a href="#games">بازی‌ها</a><a href="#server">سرور</a><a href="#chat">چت</a><a href="#upload">آپلود فایل</a><a href="#aparat">آپارات</a>
+  </nav>
+</header>
+<main>
+<section class="hero" id="home">
+  <div>
+    <span class="kicker">🎮 خانه رسمی گیمینگ Amir XO</span>
+    <h1>دنیای <span>Amir XO</span></h1>
+    <p>مودها و فایل‌های بازی‌هایی که توی ویدیوها می‌بینی، اطلاعات سرور و راه ارتباط با XO Army؛ همه در یک جا!</p>
+    <div class="buttons">
+      <a class="btn primary" href="#mods">⬇ دیدن مودها</a>
+      <a class="btn" href="#server">🌐 سرور من</a>
+      <a class="btn" href="#chat">💬 چت سایت</a>
+      <a class="btn" href="https://www.aparat.com/Amirxo333/short-videos" target="_blank" rel="noopener">📺 کانال آپارات من</a>
+    </div>
+  </div>
+  <div class="hero-card"><div class="xo-art">XO</div><p><strong>XO ARMY</strong><br><span class="muted">بازی کن، یاد بگیر، لذت ببر!</span></p></div>
+</section>
+
+<section class="section" id="mods">
+  <div class="section-head"><div><span class="kicker">DOWNLOAD CENTER</span><h2>🧩 مودهای ماینکرفت</h2></div><span class="muted">فایل‌های معرفی‌شده در ویدیوها</span></div>
+  <div class="grid" id="modsGrid">
+    <article class="card download"><div class="card-icon">🧭</div><span class="pill">Minecraft Java</span><h3>مود مینی‌مپ</h3><p class="muted">جایگاه بازیکن و محیط اطراف را روی نقشه کوچک ببین.</p><button class="btn" onclick="showInfo('برای فعال‌شدن دانلود، باید فایل واقعی مود و لینک آن را اضافه کنیم.')">لینک دانلود به‌زودی</button></article>
+    <article class="card download"><div class="card-icon">🎒</div><span class="pill">Fabric</span><h3>مودهای کاربردی هاردکور</h3><p class="muted">مجموعه مودهای سبک و کاربردی برای بقا.</p><button class="btn" onclick="showInfo('برای فعال‌شدن دانلود، باید فایل واقعی مود و لینک آن را اضافه کنیم.')">لینک دانلود به‌زودی</button></article>
+    <article class="card download"><div class="card-icon">✨</div><span class="pill">Animations</span><h3>مود انیمیشن ماب‌ها</h3><p class="muted">انیمیشن‌های جذاب‌تر برای موجودات بازی.</p><button class="btn" onclick="showInfo('برای فعال‌شدن دانلود، باید فایل واقعی مود و لینک آن را اضافه کنیم.')">لینک دانلود به‌زودی</button></article>
+  </div>
+</section>
+
+<section class="section" id="games" style="background:#151515">
+  <div class="section-head"><div><span class="kicker">GAMES</span><h2>🕹️ بازی‌ها و فایل‌ها</h2></div><span class="muted">فایل‌هایی که خودم اضافه می‌کنم</span></div>
+  <div class="grid">
+    <article class="card download"><div class="card-icon">⛏️</div><h3>Minecraft</h3><p class="muted">مودها، تکسچرپک‌ها و فایل‌های کمکی ماینکرفت.</p><span class="pill">منتظر آپلود Amir XO</span></article>
+    <article class="card download"><div class="card-icon">📱</div><h3>بازی‌های موبایلی</h3><p class="muted">بازی‌هایی که در ویدیوهای Amir XO تجربه می‌کنم.</p><span class="pill">منتظر آپلود Amir XO</span></article>
+    <article class="card download"><div class="card-icon">🧰</div><h3>لانچرها و ابزارها</h3><p class="muted">ابزارهای معرفی‌شده برای اجرای بازی‌ها.</p><span class="pill">منتظر آپلود Amir XO</span></article>
+  </div>
+</section>
+
+<section class="section" id="server">
+  <div class="section-head"><div><span class="kicker">AMIRXO SMP</span><h2>🌐 سرور ماینکرفت من</h2></div></div>
+  <div class="server-box">
+    <div><h3>به Amirxo SMP خوش اومدی!</h3><p class="muted">آدرس سرور را کپی کن و در بخش Multiplayer بازی وارد کن.</p><div class="ip" id="serverIp">AmirxoSMP.aternos.me:34557</div><div class="buttons"><button class="btn primary" onclick="copyIp()">📋 کپی آدرس سرور</button><a class="btn" href="https://aternos.org/servers/" target="_blank" rel="noopener">مدیریت سرور</a></div></div>
+    <div><div class="status"><span class="dot"></span><span id="serverStatus">وضعیت آنلاین: هنوز بررسی نشده</span></div><p class="muted small">این پیش‌نمایش هنوز به سیستم بررسی آنلاین سرور متصل نیست؛ وضعیت واقعی به اتصال به API یا سرویس وضعیت سرور نیاز دارد.</p><button class="btn" onclick="showInfo('برای نشان‌دادن وضعیت واقعی باید سایت منتشر شود و به سرویس وضعیت سرور متصل شود. این دکمه وضعیت را به‌صورت واقعی بررسی نمی‌کند.')">چرا وضعیت معلوم نیست؟</button></div>
+  </div>
+</section>
+
+<section class="section" id="chat" style="background:#151515">
+  <div class="section-head"><div><span class="kicker">XO ARMY CHAT</span><h2>💬 چت سایت</h2></div></div>
+  <div class="chat">
+    <div class="chat-top">گفت‌وگوی XO Army <span class="muted small">— نمایشی</span></div>
+    <div class="messages" id="messages"><div class="message"><div class="who">Amir XO</div>به چت XO Army خوش اومدی! 👋</div></div>
+    <form class="chat-form" id="chatForm"><input id="chatName" maxlength="24" placeholder="اسم یا لقب (مثلاً Player123)" aria-label="اسم یا لقب"><input id="chatText" maxlength="300" placeholder="پیامت را بنویس..." aria-label="پیام"><button class="btn primary" type="submit">ارسال</button></form>
+  </div>
+  <p class="notice" style="margin-top:14px">توجه: چت این پیش‌نمایش فقط روی همین دستگاه نمایشی است؛ پیام‌ها به بازدیدکنندگان دیگر نمی‌رسند. برای چت عمومی واقعی باید سرویس چت/پایگاه داده و قوانین ضداسپم راه‌اندازی شود.</p>
+</section>
+
+<section class="section" id="upload">
+  <div class="section-head"><div><span class="kicker">CREATOR PANEL</span><h2>📤 پنل اضافه‌کردن فایل</h2></div></div>
+  <div class="upload-grid">
+    <form class="upload-form" id="uploadForm">
+      <h3>اضافه‌کردن مود یا بازی</h3>
+      <p class="notice">این بخش فعلاً نمونهٔ پنل مدیریت است. رمز عبوری که در چت نوشته شده را برای سایت استفاده نکن؛ یک رمز تازه و منحصربه‌فرد را فقط در سرویس ورود امن تنظیم کن. رمز را در کد سایت یا چت قرار نده. برای آپلود عمومی باید فضای ذخیره‌سازی و سیستم ورود امن راه‌اندازی شود.</p>
+      <label for="fileTitle">نام فایل</label><input id="fileTitle" required maxlength="70" placeholder="مثلاً مود مینی‌مپ">
+      <label for="fileType">نوع فایل</label><select id="fileType"><option>مود ماینکرفت</option><option>تکسچرپک</option><option>بازی</option><option>ابزار</option><option>نقشه</option></select>
+      <label for="filePick">انتخاب فایل از گوشی</label><input id="filePick" type="file">
+      <button class="btn primary" type="submit" style="margin-top:14px;width:100%">آزمایش افزودن فایل</button>
+      <p class="muted small">در نسخه فعلی، انتخاب فایل فقط برای آزمایش ظاهر پنل است و فایل را روی اینترنت آپلود نمی‌کند.</p>
+    </form>
+    <div class="upload-form">
+      <h3 id="aparat">📺 کانال آپارات Amir XO</h3>
+      <p class="muted">ویدیوهای کوتاه و گیمینگ من را در کانال آپارات دنبال کن.</p>
+      <a class="btn primary" href="https://www.aparat.com/Amirxo333/short-videos" target="_blank" rel="noopener" style="margin-top:10px">رفتن به کانال آپارات ↗</a>
+      <p class="muted small">لینک کانالی که دادی همین‌جا قرار گرفت.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer><span><strong style="color:var(--site-primary)">AMIR XO</strong> · ساخته‌شده برای XO Army</span><span class="small">مودها را فقط از منابع معتبر بگیر و حقوق سازنده‌ها را رعایت کن.</span></footer>
+</div>
+<script>
+function showInfo(msg){ alert(msg); }
+function copyIp(){
+ const ip=document.getElementById('serverIp').textContent.trim();
+ if(navigator.clipboard && window.isSecureContext){navigator.clipboard.writeText(ip).then(()=>alert('آدرس سرور کپی شد!')).catch(()=>alert('آدرس سرور: '+ip));}
+ else {alert('آدرس سرور: '+ip);}
+}
+document.getElementById('chatForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ const name=document.getElementById('chatName').value.trim()||'بازیکن';
+ const input=document.getElementById('chatText');
+ const msg=input.value.trim(); if(!msg)return;
+ const box=document.createElement('div'); box.className='message';
+ const who=document.createElement('div'); who.className='who'; who.textContent=name;
+ const body=document.createElement('div'); body.textContent=msg;
+ box.append(who,body); document.getElementById('messages').appendChild(box);
+ input.value=''; document.getElementById('messages').scrollTop=document.getElementById('messages').scrollHeight;
+});
+document.getElementById('uploadForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ const title=document.getElementById('fileTitle').value.trim();
+ const type=document.getElementById('fileType').value;
+ const file=document.getElementById('filePick').files[0];
+ const card=document.createElement('article'); card.className='card download';
+ const icon=document.createElement('div'); icon.className='card-icon'; icon.textContent='📦';
+ const pill=document.createElement('span'); pill.className='pill'; pill.textContent=type;
+ const h=document.createElement('h3'); h.textContent=title;
+ const p=document.createElement('p'); p.className='muted'; p.textContent=file?'فایل انتخاب‌شده: '+file.name:'هنوز فایلی انتخاب نشده است.';
+ const b=document.createElement('button'); b.className='btn'; b.textContent='دانلود واقعی بعد از انتشار فعال می‌شود'; b.type='button'; b.onclick=()=>showInfo('فایل در سرور عمومی آپلود نشده است؛ برای دانلود واقعی باید فضای ذخیره‌سازی و بک‌اند متصل شود.');
+ card.append(icon,pill,h,p,b); document.getElementById('modsGrid').prepend(card);
+ this.reset(); alert('به فهرست نمایشی اضافه شد؛ هنوز آپلود عمومی انجام نشده است.');
+});
+function saveAparat(){
+ const input=document.getElementById('aparatLink'); const link=input.value.trim();
+ if(!link || !/^https?:\\/\\//i.test(link)){alert('لطفاً لینک کامل کانال آپارات را وارد کن.');return;}
+ document.getElementById('aparatVisit').href=link;
+ alert('لینک برای همین پیش‌نمایش تنظیم شد. برای سایت عمومی باید در نسخه نهایی ثبت شود.');
+}
+</script>
+</body>
+</html>
